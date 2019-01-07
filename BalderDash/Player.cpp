@@ -4,16 +4,20 @@
 #include "Level.h"
 #include "Boulder.h"
 #include "Dirt.h"
+#include "Diamond.h"
 
 Player::Player()
 	: GridObject()
 	, m_pendingMove(0,0)
 	, m_moveSound()
 	, m_bumpSound()
+	, m_diamondsCollected(0)
+	, m_enoughDiamonds(false)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
 	m_moveSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
 	m_bumpSound.setBuffer(AssetManager::GetSoundBuffer("audio/bump.wav"));
+	m_pickupSound.setBuffer(AssetManager::GetSoundBuffer("audio/pickup.wav"));
 }
 
 void Player::Input(sf::Event _gameEvent)
@@ -119,6 +123,7 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 		// Do a dynamic cast to a box to see if we can push it
 		Boulder* pushableBoulder = dynamic_cast<Boulder*>(blocker);
 		Dirt* clearDirt = dynamic_cast<Dirt*>(blocker);
+		Diamond* pickupDiamond = dynamic_cast<Diamond*>(blocker);
 
 		// If so (the blocker is a box (not nullptr))
 		if (pushableBoulder != nullptr)
@@ -145,9 +150,46 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 				return m_level->MoveObjectTo(this, targetPos);
 			
 		}
+
+		// If so (the blocker is a box (not nullptr))
+		if (pickupDiamond != nullptr)
+		{
+
+			// Attempt to clear
+			m_level->DeleteObjectAt(pickupDiamond);
+
+			CollectDiamond();
+
+			// Move to new spot (where blocker was)
+			return m_level->MoveObjectTo(this, targetPos);
+
+		}
+
 	}
 
 	// If movement is blocked, do nothing, return false
 	// Default
 	return false;
+}
+
+int Player::CollectDiamond()
+{
+	m_diamondsCollected = m_diamondsCollected + 1;
+	return  m_diamondsCollected;
+
+	
+	m_enoughDiamonds = true;
+	
+}
+
+void Player::AdvanceLevel()
+{
+	// Advance to next level
+	if (m_level != nullptr)
+		m_level->LoadNextLevel();
+}
+
+bool Player::HasEnoughDiamonds()
+{
+	return m_enoughDiamonds;
 }

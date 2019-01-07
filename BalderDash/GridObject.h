@@ -1,7 +1,7 @@
 #pragma once
 
 // Project Includes
-#include "Framework/SpriteObject.h"
+#include "SpriteObject.h"
 
 // Forward Declaration
 // (only works with pointers/references)

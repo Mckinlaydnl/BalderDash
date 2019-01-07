@@ -2,10 +2,11 @@
 #include "Level.h"
 #include "Framework/AssetManager.h"
 #include "Wall.h"
-#include "Storage.h"
 #include "Player.h"
 #include "Boulder.h"
 #include "Dirt.h"
+#include "Diamond.h"
+#include "Exit.h"
 
 // Library Includes
 #include <iostream>
@@ -187,13 +188,6 @@ void Level::LoadLevel(int _levelToLoad)
 				wall->SetGridPosition(x, y);
 				m_contents[y][x].push_back(wall);
 			}
-			else if (ch == 'S')
-			{
-				Storage* storage = new Storage();
-				storage->SetLevel(this);
-				storage->SetGridPosition(x, y);
-				m_contents[y][x].push_back(storage);
-			}
 			else if (ch == 'P')
 			{
 				Player* player = new Player();
@@ -214,6 +208,20 @@ void Level::LoadLevel(int _levelToLoad)
 				dirt->SetLevel(this);
 				dirt->SetGridPosition(x, y);
 				m_contents[y][x].push_back(dirt);
+			}
+			else if (ch == 'K')
+			{
+				Diamond* diamond = new Diamond();
+				diamond->SetLevel(this);
+				diamond->SetGridPosition(x, y);
+				m_contents[y][x].push_back(diamond);
+			}
+			else if (ch == 'E')
+			{
+				Exit* exit = new Exit();
+				exit->SetLevel(this);
+				exit->SetGridPosition(x, y);
+				m_contents[y][x].push_back(exit);
 			}
 			else
 			{

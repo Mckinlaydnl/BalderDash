@@ -1,7 +1,7 @@
 #pragma once
 
 // Project Includes
-#include "GameObject.h"
+#include "FrameWork/GameObject.h"
 
 class SpriteObject
 	// The " : public " means this class inherits from any class names that follow

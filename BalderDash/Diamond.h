@@ -3,11 +3,11 @@
 // Project Includes
 #include "GridObject.h"
 
-class Storage : public GridObject
+class Diamond : public GridObject
 {
 
 public:
 
-	Storage();
+	Diamond();
 
 };

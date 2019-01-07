@@ -33,9 +33,6 @@
     <ClCompile Include="Framework\GameObject.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\SpriteObject.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\TextObject.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -51,9 +48,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Storage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,6 +55,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Boulder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Diamond.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,9 +83,6 @@
     <ClInclude Include="Framework\GameObject.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\SpriteObject.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\TextObject.h">
       <Filter>Framework</Filter>
     </ClInclude>
@@ -92,9 +95,6 @@
     <ClInclude Include="Player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Storage.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -102,6 +102,18 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Boulder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Diamond.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
