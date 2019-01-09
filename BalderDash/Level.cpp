@@ -17,6 +17,9 @@ Level::Level()
 	, m_currentLevel(0)
 	, m_background()
 	, m_contents()
+	, m_enoughDiamonds(false)
+	, m_diamondsCollected(0)
+	, pendingLoad()
 {
 	LoadLevel(1);
 }
@@ -74,6 +77,12 @@ void Level::Update(sf::Time _frameTime)
 				m_contents[y][x][z]->Update(_frameTime);
 			}
 		}
+	}
+	if (pendingLoad != 0)
+	{
+		LoadLevel(pendingLoad);
+		pendingLoad = 0;
+		
 	}
 }
 
@@ -242,7 +251,9 @@ void Level::ReloadLevel()
 
 void Level::LoadNextLevel()
 {
+	pendingLoad = m_currentLevel + 1;
 	LoadLevel(m_currentLevel + 1);
+	m_diamondsCollected = 0;
 }
 
 float Level::GetCellSize()
@@ -340,3 +351,34 @@ void Level::DeleteObjectAt(GridObject * _toDelete)
 		}
 	}
 }
+
+bool Level::HasEnoughDiamonds()
+{
+	if (m_diamondsCollected == 5)
+	{
+		m_enoughDiamonds = true;
+	}
+	else
+	{
+		m_enoughDiamonds = false;
+	}
+	return m_enoughDiamonds;
+}
+
+int Level::collectDiamonds()
+{
+	m_diamondsCollected = m_diamondsCollected + 1;
+	return m_diamondsCollected;
+}
+
+bool Level::levelComplete()
+{
+	if (m_enoughDiamonds == true)
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+

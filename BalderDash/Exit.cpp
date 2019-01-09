@@ -5,21 +5,23 @@
 
 Exit::Exit()
 	: GridObject() // Initialise parent class
-	, m_player(nullptr)
+	, m_player()
 {
 	m_sprite.setTexture(AssetManager::GetTexture("graphics/DoorClosed.png"));
+	m_blocksMovement = true;
 }
 
 void Exit::Update(sf::Time _frameTime)
 {
-	if (m_player != nullptr)
-	{
-		bool hasEnoughDiamonds = m_player->HasEnoughDiamonds();
-		if (hasEnoughDiamonds == true)
+
+		bool hasDiamonds = m_level->HasEnoughDiamonds();
+		if (hasDiamonds == true)
 		{
 			m_sprite.setTexture(AssetManager::GetTexture("graphics/DoorOpen.png"));
 		}
-	}
+	
+	
+	
 }
 
 
@@ -28,6 +30,7 @@ void Exit::Collide(GameObject& _collider)
 	// Only do something if the thing
 	// we touched was the player
 	Player* castPlayer = dynamic_cast<Player*>(&_collider);
+	Level* m_level = dynamic_cast<Level*>(&_collider);
 
 	// Only do the thing if player is not null
 	if (castPlayer != nullptr)
@@ -35,10 +38,10 @@ void Exit::Collide(GameObject& _collider)
 		// We were touched by the player
 
 		// if the player has the key...
-		if (castPlayer->HasEnoughDiamonds())
+		if (m_level->HasEnoughDiamonds())
 		{
 			// Load Next Level
-			castPlayer->AdvanceLevel();
+			m_level->LoadNextLevel();
 		}
 	}
 }

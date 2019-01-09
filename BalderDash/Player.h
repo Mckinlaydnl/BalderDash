@@ -18,9 +18,8 @@ public:
 	// Overriding Methods
 	virtual void Input(sf::Event _gameEvent);
 	virtual void Update(sf::Time _frameTime);
-	void AdvanceLevel();
-	int CollectDiamond();
-	bool HasEnoughDiamonds();
+	
+	
 
 private:
 
@@ -34,7 +33,8 @@ private:
 	sf::Sound m_moveSound;
 	sf::Sound m_bumpSound;
 	sf::Sound m_pickupSound;
-	int m_diamondsCollected = 0;
-	bool m_enoughDiamonds;
+	float emptyTimer;
+	float fallTimer;
+	
 
 };

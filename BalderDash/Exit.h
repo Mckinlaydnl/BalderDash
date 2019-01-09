@@ -3,6 +3,7 @@
 // Project Includes
 #include "GridObject.h"
 #include "Player.h"
+#include "Level.h"
 
 class Exit : public GridObject
 {
@@ -15,7 +16,7 @@ public:
 
 	// Public Score Methods
 	void SetPlayer(Player* _player);
-
+	
 private:
 
 	Player* m_player;

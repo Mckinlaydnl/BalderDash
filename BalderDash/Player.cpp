@@ -5,19 +5,21 @@
 #include "Boulder.h"
 #include "Dirt.h"
 #include "Diamond.h"
+#include "Exit.h"
 
 Player::Player()
 	: GridObject()
-	, m_pendingMove(0,0)
+	, m_pendingMove(0, 0)
 	, m_moveSound()
 	, m_bumpSound()
-	, m_diamondsCollected(0)
-	, m_enoughDiamonds(false)
+	, emptyTimer()
+	, fallTimer(0.5)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
 	m_moveSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
 	m_bumpSound.setBuffer(AssetManager::GetSoundBuffer("audio/bump.wav"));
 	m_pickupSound.setBuffer(AssetManager::GetSoundBuffer("audio/pickup.wav"));
+	m_blocksMovement = true;
 }
 
 void Player::Input(sf::Event _gameEvent)
@@ -64,6 +66,7 @@ void Player::Input(sf::Event _gameEvent)
 
 void Player::Update(sf::Time _frameTime)
 {
+	
 	// If we have movement waiting to be processed,
 	if (m_pendingMove.x != 0 || m_pendingMove.y != 0)
 	{
@@ -77,9 +80,10 @@ void Player::Update(sf::Time _frameTime)
 		}
 		else
 		{
-			m_bumpSound.play();
+			
 		}
-
+		
+		
 		// and clear the pending movement
 		m_pendingMove = sf::Vector2i(0, 0);
 	}
@@ -92,6 +96,7 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 
 	// Get current position
 	// Calculate target position
+
 	sf::Vector2i targetPos = m_gridPosition + _direction;
 
 	// Check if the space is empty
@@ -124,8 +129,9 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 		Boulder* pushableBoulder = dynamic_cast<Boulder*>(blocker);
 		Dirt* clearDirt = dynamic_cast<Dirt*>(blocker);
 		Diamond* pickupDiamond = dynamic_cast<Diamond*>(blocker);
+		Exit* ourExit = dynamic_cast<Exit*>(blocker);
 
-		// If so (the blocker is a box (not nullptr))
+		// If so (the blocker is a boulder (not nullptr))
 		if (pushableBoulder != nullptr)
 		{
 			// Attempt to push!
@@ -139,7 +145,7 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 			}
 		}
 
-		// If so (the blocker is a box (not nullptr))
+		// If so (the blocker is dirt (not nullptr))
 		if (clearDirt != nullptr)
 		{
 			
@@ -151,19 +157,29 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 			
 		}
 
-		// If so (the blocker is a box (not nullptr))
+		// If so (the blocker is a Diamond (not nullptr))
 		if (pickupDiamond != nullptr)
 		{
 
 			// Attempt to clear
 			m_level->DeleteObjectAt(pickupDiamond);
 
-			CollectDiamond();
+			m_level->collectDiamonds();
 
+			m_level->levelComplete();
+			
 			// Move to new spot (where blocker was)
 			return m_level->MoveObjectTo(this, targetPos);
-
 		}
+	
+		if (ourExit != nullptr)
+		{
+			if (m_level->levelComplete() == true)
+			{
+				m_level->LoadNextLevel();
+			}
+		}
+		
 
 	}
 
@@ -172,24 +188,4 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 	return false;
 }
 
-int Player::CollectDiamond()
-{
-	m_diamondsCollected = m_diamondsCollected + 1;
-	return  m_diamondsCollected;
 
-	
-	m_enoughDiamonds = true;
-	
-}
-
-void Player::AdvanceLevel()
-{
-	// Advance to next level
-	if (m_level != nullptr)
-		m_level->LoadNextLevel();
-}
-
-bool Player::HasEnoughDiamonds()
-{
-	return m_enoughDiamonds;
-}

@@ -12,10 +12,13 @@ class Boulder : public GridObject
 public:
 
 	Boulder();
-
+	virtual void Update(sf::Time _frameTime);
 	bool AttemptPush(sf::Vector2i _direction);
 
 private:
 
 	sf::Sound m_pushSound;
+	float emptyTimer;
+	float fallTimer;
+	
 };

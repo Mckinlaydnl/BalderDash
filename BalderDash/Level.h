@@ -26,6 +26,10 @@ public:
 	std::vector< GridObject* > GetObjectAt(sf::Vector2i _targetPos);
 
 	void DeleteObjectAt(GridObject* _toMove);
+	bool HasEnoughDiamonds();
+	int collectDiamonds();
+	bool levelComplete();
+	
 
 private: 
 
@@ -33,5 +37,8 @@ private:
 	int m_currentLevel;
 	std::vector< std::vector< sf::Sprite > > m_background;
 	std::vector< std::vector< std::vector< GridObject* > > > m_contents;
+	bool m_enoughDiamonds;
+	int m_diamondsCollected = 0;
+	int pendingLoad;
 
 };
