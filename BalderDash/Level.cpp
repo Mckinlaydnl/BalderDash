@@ -247,6 +247,7 @@ void Level::LoadLevel(int _levelToLoad)
 void Level::ReloadLevel()
 {
 	LoadLevel(m_currentLevel);
+	m_diamondsCollected = 0;
 }
 
 void Level::LoadNextLevel()
