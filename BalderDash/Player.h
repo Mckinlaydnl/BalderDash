@@ -35,6 +35,8 @@ private:
 	sf::Sound m_pickupSound;
 	float emptyTimer;
 	float fallTimer;
+	int movementBuffer;
+	float movementTimer;
 	
 
 };

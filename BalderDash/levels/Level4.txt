@@ -2,7 +2,7 @@ W W W W W W W W W W W W W
 W D D D D D D D D D D P W
 W K D D D B D K D D B D W
 W D D D D D B D D D D D W
-W D K D D C D D D D D D W
+W D K D D D D D D D D D W
 W D D D D D W D W D D D W
 W D D D D D D D D D D D W
 W D K D D D W W W D D D W

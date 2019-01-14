@@ -11,6 +11,7 @@ Diamond::Diamond()
 	m_sprite.setTexture(AssetManager::GetTexture("graphics/diamond.png"));
 	m_blocksMovement = true;
 	m_pushSound.setBuffer(AssetManager::GetSoundBuffer("audio/push.wav"));
+	m_squashSound.setBuffer(AssetManager::GetSoundBuffer("audio/squash.wav"));
 
 }
 
@@ -72,6 +73,7 @@ bool Diamond::AttemptPush(sf::Vector2i _direction)
 		Player* ourPlayer = dynamic_cast<Player*>(blocker);
 		if (ourPlayer != nullptr)
 		{
+			m_squashSound.play();
 			m_level->ReloadLevel();
 			return false;
 		}

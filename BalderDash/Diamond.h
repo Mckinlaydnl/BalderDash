@@ -16,6 +16,7 @@ public:
 private:
 
 	sf::Sound m_pushSound;
+	sf::Sound m_squashSound;
 	float emptyTimer;
 	float fallTimer;
 
