@@ -247,6 +247,7 @@ void Level::LoadLevel(int _levelToLoad)
 void Level::ReloadLevel()
 {
 	LoadLevel(m_currentLevel);
+	// Make diamondscollected equal zero so that the player is not stuck in a game.
 	m_diamondsCollected = 0;
 }
 
@@ -254,6 +255,7 @@ void Level::LoadNextLevel()
 {
 	pendingLoad = m_currentLevel + 1;
 	LoadLevel(m_currentLevel + 1);
+	// Set diamonds collected to 0 so that player cannot get stuck in a level.
 	m_diamondsCollected = 0;
 }
 

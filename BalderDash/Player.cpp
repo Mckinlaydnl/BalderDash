@@ -12,8 +12,6 @@ Player::Player()
 	, m_pendingMove(0, 0)
 	, m_moveSound()
 	, m_bumpSound()
-	, emptyTimer()
-	, fallTimer(0.5)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
 	m_moveSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
